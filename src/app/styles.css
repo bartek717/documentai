@@ -1,0 +1,19 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    width: calc(100vw - 20px); /* Adjust for horizontal padding/margin */
+    height: calc(100vh - 20px); /* Adjust for vertical padding/margin */
+    margin: 10px; /* Margin around the container */
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden; /* Hide overflow to prevent scrolling */
+  }
+  
+  .component {
+    height: 100%; /* Full height of the container */
+    /* Ensure the sum of flex-basis values does not exceed 100% */
+  }
+  
+  
+  
+  

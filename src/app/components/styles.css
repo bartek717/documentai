@@ -4,7 +4,8 @@
   border-radius: 5px;
   border: 1px solid grey;
   max-width: 700px;
-  margin: 5rem auto;
+  margin: 0rem auto;
+  min-height: 100%;
 
 }
 
@@ -38,8 +39,7 @@ button.is-active {
   border-top: 1px solid grey;
   background: white;
   border-radius: 0 0 5px 5px;
-  min-height: 100px;
-
+  min-height: 100%;
 }
 .tiptap > * + * {
       margin-top: 0.75em;
