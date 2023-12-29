@@ -1,15 +1,15 @@
 /* Basic editor styles */
 
 .text-editor {
+  /* Keep the existing styles for the text-editor container */
   border-radius: 5px;
   border: 1px solid grey;
-  max-width: 700px;
   margin: 0rem auto;
   min-height: 100%;
-
 }
 
 .menu-bar {
+  /* Keep the existing styles for the menu bar */
   padding-bottom: 5px;
   display: flex;
   align-items: center;
@@ -17,6 +17,7 @@
 }
 
 .menu-bar button {
+  /* Keep the existing styles for buttons in the menu bar */
   font-size: 18px;
   margin: 7px;
   margin-right: 15px;
@@ -28,70 +29,77 @@
 }
 
 button.is-active {
+  /* Keep the existing styles for active state buttons */
   background: rgb(197, 197, 197);
   padding: 2px 3px;
   border-radius: 2px;
-
 }
 
-.tiptap {
-  padding: 10px;
-  border-top: 1px solid grey;
-  background: white;
-  border-radius: 0 0 5px 5px;
-  min-height: 100%;
+/* Specific styles for the content-editable div */
+.tiptap.ProseMirror {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Adding shadow for page-like effect */
+  background: white; /* White background like a document */
+  border-radius: 0; /* Square corners */
+  margin: 20px auto; /* Centering the editor on the page */
+  padding: 20px; /* Padding inside the editor, like document margins */
+  width: 210mm; /* Width similar to A4 paper */
+  min-height: 100vh; /* Full viewport height */
+  font-family: 'Arial', sans-serif; /* Simple, readable font */
+  color: black; /* Black text color */
+  outline: none; /* Removing focus outline */
 }
-.tiptap > * + * {
-      margin-top: 0.75em;
-    }
-  
-    .tiptap ul,
-    .tiptap ol {
-      padding: 0 1rem;
-    }
-  
-    .tiptap h1,
-    .tiptap h2,
-    .tiptap h3,
-    .tiptap h4,
-    .tiptap h5,
-    .tiptap h6 {
-      line-height: 1.1;
-    }
-  
-    .tiptap code {
-      background-color: #0d0d0d;
-      color: #616161;
-    }
-  
-    .tiptap pre {
-      background: #0D0D0D;
-      color: #FFF;
-      font-family: 'JetBrainsMono', monospace;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-    }
-    .tiptap pre  code {
-      color: inherit;
-      padding: 0;
-      background: none;
-      font-size: 0.8rem;
-    }
-    
-  
-    .tiptap img {
-      max-width: 100%;
-      height: auto;
-    }
-  
-    .tiptap blockquote {
-      padding-left: 1rem;
-      border-left: 2px solid #9c9c9c;
-    }
-  
-    .tiptap hr {
-      border: none;
-      border-top: 2px solid #9c9c9c;
-      margin: 2rem 0;
-    }
-  
+
+/* Keep the existing styles for other elements inside the tiptap.ProseMirror */
+.tiptap.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.tiptap.ProseMirror ul,
+.tiptap.ProseMirror ol {
+  padding: 0 1rem;
+}
+
+.tiptap.ProseMirror h1,
+.tiptap.ProseMirror h2,
+.tiptap.ProseMirror h3,
+.tiptap.ProseMirror h4,
+.tiptap.ProseMirror h5,
+.tiptap.ProseMirror h6 {
+  line-height: 1.1;
+}
+
+.tiptap.ProseMirror code {
+  background-color: #0d0d0d;
+  color: #616161;
+}
+
+.tiptap.ProseMirror pre {
+  background: #0D0D0D;
+  color: #FFF;
+  font-family: 'JetBrainsMono', monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.tiptap.ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+
+.tiptap.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+.tiptap.ProseMirror blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid #9c9c9c;
+}
+
+.tiptap.ProseMirror hr {
+  border: none;
+  border-top: 2px solid #9c9c9c;
+  margin: 2rem 0;
+}

@@ -32,4 +32,5 @@ body {
   height: 100vh; /* Full viewport height */
   box-sizing: border-box; /* Include padding and border in the box's dimensions */
   overflow: hidden; /* Hide overflow to prevent scrolling */
+  background-color: #181a1b;
 }
