@@ -1,0 +1,19 @@
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    /* Other styles for .main */
+    max-height: 30px;
+  }
+  
+  .header-container {
+    display: flex;
+    /* align-items: center; Aligns items vertically center */
+  }
+  
+  .home, .document-name {
+    margin-right: 10px; /* Adds some spacing between the items */
+  }
+  
+  .document-name-input {
+    /* Add styles for your input field here */
+  }

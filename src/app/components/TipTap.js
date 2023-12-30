@@ -8,7 +8,32 @@ import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from "@tiptap/extension-underline"
 import React from 'react'
-import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaListUl, FaUndo, FaRedo, FaUnderline} from "react-icons/fa"
+import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaListUl, FaUndo, FaRedo, FaUnderline, FaDownload} from "react-icons/fa"
+
+const downloadPDF = async (editor) => {
+  const html = editor.getHTML(); // Get HTML from the editor
+  console.log('here')
+  console.log(html)
+  const res = await fetch('/api/pdf', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify( {html} ), // Send HTML content to the server
+  });
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'document.pdf';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+};
+
+
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
@@ -20,6 +45,7 @@ const MenuBar = () => {
   return (
     <div className='menu-bar'>
       <div>
+      <button onClick={() => downloadPDF(editor)}><FaDownload/></button>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={
@@ -172,6 +198,7 @@ const MenuBar = () => {
       >
         <FaUndo/>
       </button>
+      
       <button
         onClick={() => editor.chain().focus().redo().run()}
         disabled={
@@ -215,10 +242,13 @@ const content = `
 
 `
 
+
+
 export default () => {
   return (
     <div className="text-editor">
-      <EditorProvider slotBefore={<MenuBar />} extensions={extensions} content={content} ></EditorProvider>
+      <EditorProvider slotBefore={<MenuBar />} extensions={extensions} content={content} onUpdate={({editor}) => {const html = editor.getHTML()} }></EditorProvider>
+      {/* <EditorProvider extensions={extensions} content={content} ></EditorProvider> */}
     </div>
   )
 }
