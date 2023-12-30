@@ -9,7 +9,7 @@ import './styles.css';
 export default function Home() {
   const [documentName, setDocumentName] = useState('');
   return (
-    <div>
+    <div className='master'>
       <div className='header'>
         <Header documentName={documentName} setDocumentName={setDocumentName} />
         {/* <div>hi</div> */}

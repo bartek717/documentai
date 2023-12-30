@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './chatstyles.css';
 
 function Chat() {
@@ -11,9 +11,9 @@ function Chat() {
     const newUserMessage = { text: inputText, sender: 'user' };
     const updatedMessages = [...messages, newUserMessage];
     setMessages(updatedMessages);
-  
+
     setInputText('');
-  
+
     await fetch("api/chat", {
         method: "POST",
         headers: {
@@ -45,12 +45,17 @@ function Chat() {
       });
   };
 
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <div className='main-chat'>
       <div className="chat-messages">
         {messages.map((message, index) => (
-          <div key={index} className={`message ${message.sender}`}>
-            {message.text}
+          <div key={index} className={`message-bubble ${message.sender}`}>
+            <div className="message-text">{message.text}</div>
+            <button className="copy-button" onClick={() => handleCopy(message.text)}>Copy</button>
           </div>
         ))}
       </div>
@@ -69,3 +74,4 @@ function Chat() {
 }
 
 export default Chat;
+

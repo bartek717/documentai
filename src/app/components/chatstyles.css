@@ -1,28 +1,59 @@
 .main-chat {
-    border: 1px solid grey;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 5px 5px 5px 5px;
-  }
-  
-  .chat-messages {
-    overflow-y: auto; /* Enables scrolling for chat messages */
-  }
-  
-  form {
-    display: flex;
-    padding: 10px;
-  }
-  
-  input[type="text"] {
-    flex-grow: 1;
-    margin-right: 10px;
-    padding: 8px;
-  }
-  
-  button {
-    padding: 8px;
-  }
-  
+  border: 1px solid grey;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.chat-messages {
+  overflow-y: auto;
+  padding: 10px;
+}
+
+form {
+  display: flex;
+  padding: 10px;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 8px;
+}
+
+button {
+  padding: 8px;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  position: relative;
+}
+
+.message-bubble.user {
+  margin-left: auto;
+  background-color: #DCF8C6; /* Light green for user */
+}
+
+.message-bubble.gpt4 {
+  background-color: #ECECEC; /* Light grey for GPT */
+}
+
+.message-text {
+  word-wrap: break-word;
+}
+
+.copy-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.8em;
+}
