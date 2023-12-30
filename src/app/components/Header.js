@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import styles from './headerstyles.css';
 
-function Header() {
-  const [documentName, setDocumentName] = useState('Untitled Document');
+function Header( {documentName, setDocumentName} ) {
 
   const handleNameChange = (e) => {
     setDocumentName(e.target.value);
@@ -20,6 +19,7 @@ function Header() {
             onChange={handleNameChange} 
             className="document-name-input" 
             placeholder="Enter document name" 
+
           />
         </div>
       </div>
