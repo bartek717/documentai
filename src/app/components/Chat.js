@@ -2,24 +2,21 @@
 import React, { useState } from 'react';
 import './chatstyles.css';
 
-function Chat() {
+function Chat( { text: pdfText} ) {
   const [inputText, setInputText] = useState('');
   const [messages, setMessages] = useState([]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newUserMessage = { text: inputText, sender: 'user' };
     const updatedMessages = [...messages, newUserMessage];
     setMessages(updatedMessages);
-
     setInputText('');
-
     await fetch("api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ messages: updatedMessages })
+        body: JSON.stringify({ extra:pdfText, messages: updatedMessages })
       })
       .then(async (response) => {
         const reader = response.body?.getReader();

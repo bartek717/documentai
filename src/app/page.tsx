@@ -8,10 +8,12 @@ import './styles.css';
 
 export default function Home() {
   const [documentName, setDocumentName] = useState('');
+  const [pdfText, setPdfText] = useState('');
+  console.log(pdfText)
   return (
     <div className='master'>
       <div className='header'>
-        <Header documentName={documentName} setDocumentName={setDocumentName} />
+        <Header documentName={documentName} setDocumentName={setDocumentName} pdfText={pdfText} setPdfText={setPdfText} />
         {/* <div>hi</div> */}
       </div>
       <div className="main">
@@ -19,7 +21,7 @@ export default function Home() {
           <TipTap documentName={documentName}/>
         </div>
         <div className="component" style={{ flex: '0 0 30%' }}>
-          <Chat></Chat>
+          <Chat text={pdfText}></Chat>
         </div>
       </div>
     </div>

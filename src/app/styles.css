@@ -12,6 +12,7 @@
   .component {
     height: 100%; /* Full height of the container */
     /* Ensure the sum of flex-basis values does not exceed 100% */
+    overflow-y: scroll;
   }
   
   .editor {
