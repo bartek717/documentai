@@ -1,16 +1,23 @@
 import puppeteer from 'puppeteer';
 import type { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 
 export async function POST(req: Request) {
   if (req.method === 'POST') {
     const { html, documentName } = await req.json();
-    // console.log(html)
-    console.log(documentName)
-    console.log(typeof(documentName))
+
+    // Adjust the path to the location of your CSS file
+    const cssPath = path.resolve(process.cwd(), 'src/app/components/editor.css');
+    const css = fs.readFileSync(cssPath, 'utf8');
+    console.log(css)
+    console.log(html)
+    const fullHtml = `<style>${css}</style>${html}`;
+    // Continue with Puppeteer to generate PDF
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: 'networkidle0' });
+    await page.setContent(fullHtml, { waitUntil: 'networkidle0' });
     const pdfBuffer = await page.pdf({ format: 'A4' });
     await browser.close();
 
@@ -27,7 +34,7 @@ export async function POST(req: Request) {
   }
 }
 
-function sanitizeFilename(name) {
+function sanitizeFilename(name: String) {
     // Ensure that name is a string
     if (typeof name !== 'string') {
       // Handle non-string inputs here. You might return a default name or convert it to a string.
