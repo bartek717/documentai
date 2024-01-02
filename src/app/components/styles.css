@@ -51,16 +51,16 @@ button.is-active {
 
 /* Keep the existing styles for other elements inside the tiptap.ProseMirror */
 .tiptap.ProseMirror > * + * {
-  margin-top: 0.75em;
+  /* margin-top: 0.75em; */
 }
 
 .tiptap.ProseMirror p {
-  margin: 5rem 5rem;
+  /* margin: 5rem 5rem; */
 }
 
 .tiptap.ProseMirror ul,
 .tiptap.ProseMirror ol {
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
 }
 
 .tiptap.ProseMirror h1,
@@ -69,7 +69,7 @@ button.is-active {
 .tiptap.ProseMirror h4,
 .tiptap.ProseMirror h5,
 .tiptap.ProseMirror h6 {
-  line-height: 1.1;
+  /* line-height: 1.1; */
 }
 
 .tiptap.ProseMirror code {
@@ -81,8 +81,8 @@ button.is-active {
   background: #0D0D0D;
   color: #FFF;
   font-family: 'JetBrainsMono', monospace;
-  padding: 5rem 5rem;
-  border-radius: 0.5rem;
+  /* padding: 5rem 5rem; */
+  /* border-radius: 0.5rem; */
 }
 
 .tiptap.ProseMirror pre code {

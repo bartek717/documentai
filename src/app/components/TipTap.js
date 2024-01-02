@@ -7,7 +7,7 @@ import TextStyle from '@tiptap/extension-text-style'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from "@tiptap/extension-underline"
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaListUl, FaUndo, FaRedo, FaUnderline, FaDownload} from "react-icons/fa"
 
 const downloadPDF = async ( editor, documentName ) => {
@@ -31,9 +31,26 @@ const downloadPDF = async ( editor, documentName ) => {
   window.URL.revokeObjectURL(url);
 };
 
+const MarginForm = ({ onSave, onClose }) => {
+  const [margins, setMargins] = useState({ top: '10rem', right: '2rem', bottom: '2rem', left: '2rem' });
 
+  const handleMarginChange = (e) => {
+    setMargins({ ...margins, [e.target.name]: e.target.value });
+  };
 
-const MenuBar = ( {documentName} ) => {
+  return (
+    <div>
+      <input type="text" name="top" value={margins.top} onChange={handleMarginChange} placeholder="Top Margin" />
+      <input type="text" name="right" value={margins.right} onChange={handleMarginChange} placeholder="Right Margin" />
+      <input type="text" name="bottom" value={margins.bottom} onChange={handleMarginChange} placeholder="Bottom Margin" />
+      <input type="text" name="left" value={margins.left} onChange={handleMarginChange} placeholder="Left Margin" />
+      <button onClick={() => onSave(margins)}>Save</button>
+      <button onClick={onClose}>Cancel</button>
+    </div>
+  );
+};
+
+const MenuBar = ( {documentName, onMarginChange} ) => {
   const { editor } = useCurrentEditor()
 
   if (!editor) {
@@ -44,6 +61,7 @@ const MenuBar = ( {documentName} ) => {
     <div className='menu-bar'>
       <div>
       <button onClick={() => downloadPDF(editor, documentName)}><FaDownload/></button>
+      <button onClick={onMarginChange}>Adjust Margins</button>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={
@@ -96,61 +114,12 @@ const MenuBar = ( {documentName} ) => {
       >
         <FaStrikethrough/>
       </button>
-      {/* <button
-        onClick={() => editor.chain().focus().toggleCode().run()}
-        disabled={
-          !editor.can()
-            .chain()
-            .focus()
-            .toggleCode()
-            .run()
-        }
-        className={editor.isActive('code') ? 'is-active' : ''}
-      >
-        code
-      </button> */}
-      {/* <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>
-        clear marks
-      </button>
-      <button onClick={() => editor.chain().focus().clearNodes().run()}>
-        clear nodes
-      </button> */}
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
       >
         <FaHeading/>
       </button>
-      {/* <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-      >
-        h2
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
-      >
-        h3
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-        className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
-      >
-        h4
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
-      >
-        h5
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
-      >
-        h6
-      </button> */}
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive('bulletList') ? 'is-active' : ''}
@@ -163,24 +132,12 @@ const MenuBar = ( {documentName} ) => {
       >
         <FaListOl/>
       </button>
-      {/* <button
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive('codeBlock') ? 'is-active' : ''}
-      >
-        code block
-      </button> */}
       <button
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={editor.isActive('blockquote') ? 'is-active' : ''}
       >
         <FaQuoteLeft/>
       </button>
-      {/* <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
-        horizontal rule
-      </button> */}
-      {/* <button onClick={() => editor.chain().focus().setHardBreak().run()}>
-        hard break
-      </button> */}
       </div>
       <div>
 
@@ -209,12 +166,6 @@ const MenuBar = ( {documentName} ) => {
       >
         <FaRedo/>
       </button>
-      {/* <button
-        onClick={() => editor.chain().focus().setColor('#958DF1').run()}
-        className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}
-      >
-        purple
-      </button> */}
     </div>
     </div>
   )
@@ -241,12 +192,55 @@ const content = `
 `
 
 
+const MyEditor = ({ documentName }) => {
+  const [showMarginForm, setShowMarginForm] = useState(false);
+  const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
+  const editorRef = useRef(null); 
 
-export default ( {documentName} ) => {
+  useEffect(() => {
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.addedNodes.length > 0) {
+          mutation.addedNodes.forEach(node => {
+            // Checking if the node contains the specific class combination
+            if (node.classList?.contains('ProseMirror') && node.classList?.contains('tiptap')) {
+              // Apply margins once the .tiptap.ProseMirror element is added
+              setEditorMargins(margins);
+            }
+          });
+        }
+      });
+    });
+
+    if (editorRef.current) {
+      observer.observe(editorRef.current, { childList: true, subtree: true });
+    }
+    console.log('disconnecting observer')
+    return () => observer.disconnect(); // Cleanup observer on component unmount
+  }, []);
+
+  const setEditorMargins = (newMargins) => {
+    const editorElement = document.querySelector('.tiptap.ProseMirror');
+    if (editorElement) {
+      editorElement.style.marginTop = newMargins.top;
+      editorElement.style.marginRight = newMargins.right;
+      editorElement.style.marginBottom = newMargins.bottom;
+      editorElement.style.marginLeft = newMargins.left;
+    }
+  };
+
+  const handleMarginChange = (newMargins) => {
+    setMargins(newMargins);
+    setEditorMargins(newMargins);
+    setShowMarginForm(false);
+  };
+
   return (
-    <div className="text-editor">
-      <EditorProvider slotBefore={<MenuBar documentName={documentName}/>} extensions={extensions} content={content} onUpdate={({editor}) => {const html = editor.getHTML()} }></EditorProvider>
-      {/* <EditorProvider extensions={extensions} content={content} ></EditorProvider> */}
+    <div ref={editorRef} className="text-editor">
+      {showMarginForm && <MarginForm onSave={handleMarginChange} onClose={() => setShowMarginForm(false)} />}
+      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
     </div>
-  )
-}
+  );
+};
+
+export default MyEditor;
