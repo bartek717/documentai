@@ -32,7 +32,7 @@ const downloadPDF = async ( editor, documentName ) => {
 };
 
 const MarginForm = ({ onSave, onClose }) => {
-  const [margins, setMargins] = useState({ top: '10rem', right: '2rem', bottom: '2rem', left: '2rem' });
+  const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
 
   const handleMarginChange = (e) => {
     setMargins({ ...margins, [e.target.name]: e.target.value });
@@ -191,7 +191,6 @@ const content = `
 
 `
 
-
 const MyEditor = ({ documentName }) => {
   const [showMarginForm, setShowMarginForm] = useState(false);
   const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
@@ -215,17 +214,20 @@ const MyEditor = ({ documentName }) => {
     if (editorRef.current) {
       observer.observe(editorRef.current, { childList: true, subtree: true });
     }
-    console.log('disconnecting observer')
-    return () => observer.disconnect(); // Cleanup observer on component unmount
-  }, []);
+
+    return () => {
+      observer.disconnect(); // Cleanup observer on component unmount
+      console.log('disconnecting observer');
+    };
+  }, [margins]); // Adding margins as a dependency
 
   const setEditorMargins = (newMargins) => {
     const editorElement = document.querySelector('.tiptap.ProseMirror');
     if (editorElement) {
-      editorElement.style.marginTop = newMargins.top;
-      editorElement.style.marginRight = newMargins.right;
-      editorElement.style.marginBottom = newMargins.bottom;
-      editorElement.style.marginLeft = newMargins.left;
+      editorElement.style.setProperty('--editor-margin-top', newMargins.top);
+      editorElement.style.setProperty('--editor-margin-right', newMargins.right);
+      editorElement.style.setProperty('--editor-margin-bottom', newMargins.bottom);
+      editorElement.style.setProperty('--editor-margin-left', newMargins.left);
     }
   };
 

@@ -54,8 +54,14 @@ button.is-active {
   /* margin-top: 0.75em; */
 }
 
-.tiptap.ProseMirror p {
+/* .tiptap.ProseMirror p { */
   /* margin: 5rem 5rem; */
+/* }  */
+.tiptap.ProseMirror p {
+  margin-top: var(--editor-margin-top, 5rem);
+  margin-right: var(--editor-margin-right, 5rem);
+  margin-bottom: var(--editor-margin-bottom, 5rem);
+  margin-left: var(--editor-margin-left, 5rem);
 }
 
 .tiptap.ProseMirror ul,
