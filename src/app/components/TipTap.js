@@ -10,14 +10,15 @@ import Underline from "@tiptap/extension-underline"
 import React, {useState, useEffect, useRef} from 'react'
 import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaListUl, FaUndo, FaRedo, FaUnderline, FaDownload} from "react-icons/fa"
 
-const downloadPDF = async ( editor, documentName ) => {
+
+const downloadPDF = async (editor, documentName, margins) => {
   const html = editor.getHTML(); // Get HTML from the editor
   const res = await fetch('/api/pdf', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify( {html, documentName} ), // Send HTML content to the server
+    body: JSON.stringify({ html, documentName, margins }), // Include margins in the request body
   });
 
   const blob = await res.blob();
@@ -31,8 +32,8 @@ const downloadPDF = async ( editor, documentName ) => {
   window.URL.revokeObjectURL(url);
 };
 
-const MarginForm = ({ onSave, onClose }) => {
-  const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
+const MarginForm = ({ onSave, onClose, margins, setMargins }) => {
+  // const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
 
   const handleMarginChange = (e) => {
     setMargins({ ...margins, [e.target.name]: e.target.value });
@@ -50,7 +51,7 @@ const MarginForm = ({ onSave, onClose }) => {
   );
 };
 
-const MenuBar = ( {documentName, onMarginChange} ) => {
+const MenuBar = ( {documentName, onMarginChange, margins} ) => {
   const { editor } = useCurrentEditor()
 
   if (!editor) {
@@ -60,7 +61,7 @@ const MenuBar = ( {documentName, onMarginChange} ) => {
   return (
     <div className='menu-bar'>
       <div>
-      <button onClick={() => downloadPDF(editor, documentName)}><FaDownload/></button>
+      <button onClick={() => downloadPDF(editor, documentName, margins)}><FaDownload/></button>
       <button onClick={onMarginChange}>Adjust Margins</button>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -201,9 +202,7 @@ const MyEditor = ({ documentName }) => {
       mutations.forEach(mutation => {
         if (mutation.addedNodes.length > 0) {
           mutation.addedNodes.forEach(node => {
-            // Checking if the node contains the specific class combination
             if (node.classList?.contains('ProseMirror') && node.classList?.contains('tiptap')) {
-              // Apply margins once the .tiptap.ProseMirror element is added
               setEditorMargins(margins);
             }
           });
@@ -239,8 +238,8 @@ const MyEditor = ({ documentName }) => {
 
   return (
     <div ref={editorRef} className="text-editor">
-      {showMarginForm && <MarginForm onSave={handleMarginChange} onClose={() => setShowMarginForm(false)} />}
-      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
+      {showMarginForm && <MarginForm onSave={handleMarginChange} margins={margins} setMargins={setMargins} onClose={() => setShowMarginForm(false)} />}
+      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
     </div>
   );
 };
