@@ -11,14 +11,14 @@ import React, {useState, useEffect, useRef} from 'react'
 import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaListUl, FaUndo, FaRedo, FaUnderline, FaDownload} from "react-icons/fa"
 
 
-const downloadPDF = async (editor, documentName, margins, font) => {
+const downloadPDF = async (editor, documentName, margins, font, fontSize) => {
   const html = editor.getHTML(); // Get HTML from the editor
   const res = await fetch('/api/pdf', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ html, documentName, margins, font }), // Include margins in the request body
+    body: JSON.stringify({ html, documentName, margins, font, fontSize }), // Include margins in the request body
   });
 
   const blob = await res.blob();
@@ -51,7 +51,7 @@ const MarginForm = ({ onSave, onClose, margins, setMargins }) => {
   );
 };
 
-const MenuBar = ( {documentName, onMarginChange, margins, font} ) => {
+const MenuBar = ( {documentName, onMarginChange, margins, font, fontSize} ) => {
   const { editor } = useCurrentEditor()
 
   if (!editor) {
@@ -61,7 +61,7 @@ const MenuBar = ( {documentName, onMarginChange, margins, font} ) => {
   return (
     <div className='menu-bar'>
       <div>
-      <button onClick={() => downloadPDF(editor, documentName, margins, font)}><FaDownload/></button>
+      <button onClick={() => downloadPDF(editor, documentName, margins, font, fontSize)}><FaDownload/></button>
       <button onClick={onMarginChange}>Adjust Margins</button>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -194,6 +194,7 @@ const content = `
 
 const MyEditor = ({ documentName }) => {
   const [fontFamily, setFontFamily] = useState('Arial');
+  const [fontSize, setFontSize] = useState('12px');
   const [showMarginForm, setShowMarginForm] = useState(false);
   const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
   const editorRef = useRef(null); 
@@ -202,6 +203,12 @@ const MyEditor = ({ documentName }) => {
     const newFamily = e.target.value;
     setFontFamily(newFamily);
     updateEditorStyles({ fontFamily: newFamily });
+  };
+
+  const handleFontSizeChange = (e) => {
+    const newSize = e.target.value;
+    setFontSize(newSize);
+    updateEditorStyles({ fontSize: newSize }); // Use newSize instead of fontSize
   };
 
   const updateEditorStyles = (styles) => {
@@ -255,7 +262,8 @@ const MyEditor = ({ documentName }) => {
 
   return (
     <div ref={editorRef} className="text-editor">
-      <div className="font-selector">
+      <div>
+        <div className="font-selector">
         <label htmlFor="font-family-selector">Font Family: </label>
         <select id="font-family-selector" onChange={handleFontFamilyChange} value={fontFamily}>
           <option value="Arial">Arial</option>
@@ -264,9 +272,20 @@ const MyEditor = ({ documentName }) => {
           <option value="Courier New">Courier New</option>
           {/* Add more options as needed */}
         </select>
-      </div>
+        </div>
+        <div>
+          <label htmlFor="font-size-selector">Font Size: </label>
+          <select id="font-size-selector" onChange={handleFontSizeChange} value={fontSize}>
+            <option value="8px">8px</option>
+            <option value="10px">10px</option>
+            <option value="12px">12px</option>
+            <option value="14px">14px</option>
+           
+          </select>
+        </div>
+        </div>
       {showMarginForm && <MarginForm onSave={handleMarginChange} margins={margins} setMargins={setMargins} onClose={() => setShowMarginForm(false)} />}
-      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} font={fontFamily} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
+      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} font={fontFamily} fontSize={fontSize} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import path from 'path';
 
 export async function POST(req: Request) {
   if (req.method === 'POST') {
-    const { html, documentName, margins, font } = await req.json();
+    const { html, documentName, margins, font, fontSize } = await req.json();
     const dynamicCss = `
     p {
       margin-top: ${margins.top};
@@ -14,6 +14,7 @@ export async function POST(req: Request) {
       margin-bottom: ${margins.bottom};
       margin-left: ${margins.left};
       font-family: ${font};
+      font-size: ${fontSize};
     }
   `;
     // const cssPath = path.resolve(process.cwd(), 'src/app/components/styles.css');
