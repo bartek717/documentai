@@ -52,7 +52,7 @@ const MarginForm = ({ onSave, onClose, margins, setMargins }) => {
   );
 };
 
-const MenuBar = ( {documentName, onMarginChange, margins, font, fontSize} ) => {
+const MenuBar = ( {documentName, onMarginChange, margins, font, fontSize, handleFontFamilyChange, handleFontSizeChange, fontFamily} ) => {
   const { editor } = useCurrentEditor()
 
   if (!editor) {
@@ -64,6 +64,26 @@ const MenuBar = ( {documentName, onMarginChange, margins, font, fontSize} ) => {
       <div>
       <button onClick={() => downloadPDF(editor, documentName, margins, font, fontSize)}><FaDownload/></button>
       <button onClick={onMarginChange}>Adjust Margins</button>
+        
+        <label htmlFor="font-family-selector"></label>
+        <select id="font-family-selector" onChange={handleFontFamilyChange} value={fontFamily}>
+          <option value="Arial">Arial</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Courier New">Courier New</option>
+        </select>
+        
+          <label htmlFor="font-size-selector"></label>
+          <select id="font-size-selector" onChange={handleFontSizeChange} value={fontSize}>
+            <option value="8px">8px</option>
+            <option value="10px">10px</option>
+            <option value="12px">12px</option>
+            <option value="14px">14px</option>
+            <option value="16px">16px</option>
+            <option value="18px">18px</option>
+            <option value="20px">20px</option>
+          </select>
+        
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={
@@ -264,32 +284,8 @@ const MyEditor = ({ documentName }) => {
 
   return (
     <div ref={editorRef} className="text-editor">
-      <div>
-        <div className="font-selector">
-        <label htmlFor="font-family-selector">Font Family: </label>
-        <select id="font-family-selector" onChange={handleFontFamilyChange} value={fontFamily}>
-          <option value="Arial">Arial</option>
-          <option value="Georgia">Georgia</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Courier New">Courier New</option>
-          {/* Add more options as needed */}
-        </select>
-        </div>
-        <div>
-          <label htmlFor="font-size-selector">Font Size: </label>
-          <select id="font-size-selector" onChange={handleFontSizeChange} value={fontSize}>
-            <option value="8px">8px</option>
-            <option value="10px">10px</option>
-            <option value="12px">12px</option>
-            <option value="14px">14px</option>
-            <option value="14px">16px</option>
-            <option value="14px">18px</option>
-            <option value="14px">20px</option>
-          </select>
-        </div>
-        </div>
       {showMarginForm && <MarginForm onSave={handleMarginChange} margins={margins} setMargins={setMargins} onClose={() => setShowMarginForm(false)} />}
-      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} font={fontFamily} fontSize={fontSize} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
+      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} font={fontFamily} fontSize={fontSize} handleFontFamilyChange={handleFontFamilyChange} handleFontSizeChange={handleFontSizeChange} fontFamily={fontFamily}/>} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
     </div>
   );
 };
