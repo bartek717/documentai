@@ -228,6 +228,7 @@ const MyEditor = ({ documentName }) => {
           mutation.addedNodes.forEach(node => {
             if (node.classList?.contains('ProseMirror') && node.classList?.contains('tiptap')) {
               setEditorMargins(margins);
+              updateEditorStyles({fontSize: fontSize, fontFamily: fontFamily})
             }
           });
         }
