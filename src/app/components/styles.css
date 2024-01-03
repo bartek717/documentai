@@ -44,7 +44,7 @@ button.is-active {
   padding: 20px; /* Padding inside the editor, like document margins */
   width: 210mm; /* Width similar to A4 paper */
   min-height: 100vh; /* Full viewport height */
-  font-family: 'Arial', sans-serif; /* Simple, readable font */
+  font-family: 'Arial', sans-serif; 
   color: black; /* Black text color */
   outline: none; /* Removing focus outline */
 }

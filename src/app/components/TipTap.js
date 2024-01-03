@@ -11,14 +11,14 @@ import React, {useState, useEffect, useRef} from 'react'
 import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaListUl, FaUndo, FaRedo, FaUnderline, FaDownload} from "react-icons/fa"
 
 
-const downloadPDF = async (editor, documentName, margins) => {
+const downloadPDF = async (editor, documentName, margins, font) => {
   const html = editor.getHTML(); // Get HTML from the editor
   const res = await fetch('/api/pdf', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ html, documentName, margins }), // Include margins in the request body
+    body: JSON.stringify({ html, documentName, margins, font }), // Include margins in the request body
   });
 
   const blob = await res.blob();
@@ -51,7 +51,7 @@ const MarginForm = ({ onSave, onClose, margins, setMargins }) => {
   );
 };
 
-const MenuBar = ( {documentName, onMarginChange, margins} ) => {
+const MenuBar = ( {documentName, onMarginChange, margins, font} ) => {
   const { editor } = useCurrentEditor()
 
   if (!editor) {
@@ -61,7 +61,7 @@ const MenuBar = ( {documentName, onMarginChange, margins} ) => {
   return (
     <div className='menu-bar'>
       <div>
-      <button onClick={() => downloadPDF(editor, documentName, margins)}><FaDownload/></button>
+      <button onClick={() => downloadPDF(editor, documentName, margins, font)}><FaDownload/></button>
       <button onClick={onMarginChange}>Adjust Margins</button>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -193,9 +193,26 @@ const content = `
 `
 
 const MyEditor = ({ documentName }) => {
+  const [fontFamily, setFontFamily] = useState('Arial');
   const [showMarginForm, setShowMarginForm] = useState(false);
   const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
   const editorRef = useRef(null); 
+
+  const handleFontFamilyChange = (e) => {
+    const newFamily = e.target.value;
+    setFontFamily(newFamily);
+    updateEditorStyles({ fontFamily: newFamily });
+  };
+
+  const updateEditorStyles = (styles) => {
+    const editorElement = document.querySelector('.tiptap.ProseMirror');
+    if (editorElement) {
+      for (const [key, value] of Object.entries(styles)) {
+        editorElement.style[key] = value;
+      }
+    }
+  };
+
 
   useEffect(() => {
     const observer = new MutationObserver(mutations => {
@@ -238,8 +255,18 @@ const MyEditor = ({ documentName }) => {
 
   return (
     <div ref={editorRef} className="text-editor">
+      <div className="font-selector">
+        <label htmlFor="font-family-selector">Font Family: </label>
+        <select id="font-family-selector" onChange={handleFontFamilyChange} value={fontFamily}>
+          <option value="Arial">Arial</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Courier New">Courier New</option>
+          {/* Add more options as needed */}
+        </select>
+      </div>
       {showMarginForm && <MarginForm onSave={handleMarginChange} margins={margins} setMargins={setMargins} onClose={() => setShowMarginForm(false)} />}
-      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
+      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} font={fontFamily} />} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
     </div>
   );
 };
