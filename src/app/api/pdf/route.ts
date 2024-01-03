@@ -8,10 +8,13 @@ export async function POST(req: Request) {
   if (req.method === 'POST') {
     const { html, documentName, margins, font, fontSize } = await req.json();
     const dynamicCss = `
-    p {
-      margin-top: ${margins.top};
+    .editor-content {
+      padding-top: ${margins.top};
+      padding-bottom: ${margins.bottom};
+    }
+
+    .editor-content p {
       margin-right: ${margins.right};
-      margin-bottom: ${margins.bottom};
       margin-left: ${margins.left};
       font-family: ${font};
       font-size: ${fontSize};
@@ -23,8 +26,9 @@ export async function POST(req: Request) {
     // // console.log(html)
 
     
-    // This will log: "p { margin-top: var(--editor-margin-top, 5rem); margin-right: var(--editor-margin-right, 5rem); margin-bottom: var(--editor-margin-bottom, 5rem); margin-left: var(--editor-margin-left, 5rem); }"
-    const fullHtml = `<style>${dynamicCss}</style>${html}`;
+    const wrappedHtml = `<div class="editor-content">${html}</div>`;
+
+    const fullHtml = `<style>${dynamicCss}</style>${wrappedHtml}`
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(fullHtml, { waitUntil: 'networkidle0' });

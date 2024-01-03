@@ -41,12 +41,15 @@ button.is-active {
   background: white; /* White background like a document */
   border-radius: 0; /* Square corners */
   margin: 20px auto; /* Centering the editor on the page */
-  padding: 20px; /* Padding inside the editor, like document margins */
+  /* padding: 20px; */
   width: 210mm; /* Width similar to A4 paper */
   min-height: 100vh; /* Full viewport height */
   font-family: 'Arial', sans-serif; 
   color: black; /* Black text color */
   outline: none; /* Removing focus outline */
+
+  padding-top: var(--editor-padding-top, 5rem);
+  padding-bottom: var(--editor-padding-bottom, 5rem);
 }
 
 /* Keep the existing styles for other elements inside the tiptap.ProseMirror */
@@ -55,11 +58,13 @@ button.is-active {
 }
 
 .tiptap.ProseMirror p {
-  margin-top: var(--editor-margin-top, 5rem);
+  /* margin-top: var(--editor-margin-top, 5rem); */
   margin-right: var(--editor-margin-right, 5rem);
-  margin-bottom: var(--editor-margin-bottom, 5rem);
+  /* margin-bottom: var(--editor-margin-bottom, 5rem); */
   margin-left: var(--editor-margin-left, 5rem);
 }
+
+
 
 .tiptap.ProseMirror ul,
 .tiptap.ProseMirror ol {

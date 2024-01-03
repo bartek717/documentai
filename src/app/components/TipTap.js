@@ -13,6 +13,7 @@ import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaL
 
 const downloadPDF = async (editor, documentName, margins, font, fontSize) => {
   const html = editor.getHTML(); // Get HTML from the editor
+
   const res = await fetch('/api/pdf', {
     method: 'POST',
     headers: {
@@ -194,9 +195,9 @@ const content = `
 
 const MyEditor = ({ documentName }) => {
   const [fontFamily, setFontFamily] = useState('Arial');
-  const [fontSize, setFontSize] = useState('12px');
+  const [fontSize, setFontSize] = useState('16px');
   const [showMarginForm, setShowMarginForm] = useState(false);
-  const [margins, setMargins] = useState({ top: '2rem', right: '2rem', bottom: '2rem', left: '2rem' });
+  const [margins, setMargins] = useState({ top: '4rem', right: '4.5rem', bottom: '4.5rem', left: '4.5rem' });
   const editorRef = useRef(null); 
 
   const handleFontFamilyChange = (e) => {
@@ -208,7 +209,7 @@ const MyEditor = ({ documentName }) => {
   const handleFontSizeChange = (e) => {
     const newSize = e.target.value;
     setFontSize(newSize);
-    updateEditorStyles({ fontSize: newSize }); // Use newSize instead of fontSize
+    updateEditorStyles({ fontSize: newSize }); 
   };
 
   const updateEditorStyles = (styles) => {
@@ -248,9 +249,9 @@ const MyEditor = ({ documentName }) => {
   const setEditorMargins = (newMargins) => {
     const editorElement = document.querySelector('.tiptap.ProseMirror');
     if (editorElement) {
-      editorElement.style.setProperty('--editor-margin-top', newMargins.top);
+      editorElement.style.setProperty('--editor-padding-top', newMargins.top);
       editorElement.style.setProperty('--editor-margin-right', newMargins.right);
-      editorElement.style.setProperty('--editor-margin-bottom', newMargins.bottom);
+      editorElement.style.setProperty('--editor-padding-bottom', newMargins.bottom);
       editorElement.style.setProperty('--editor-margin-left', newMargins.left);
     }
   };
@@ -281,7 +282,9 @@ const MyEditor = ({ documentName }) => {
             <option value="10px">10px</option>
             <option value="12px">12px</option>
             <option value="14px">14px</option>
-           
+            <option value="14px">16px</option>
+            <option value="14px">18px</option>
+            <option value="14px">20px</option>
           </select>
         </div>
         </div>
