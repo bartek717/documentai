@@ -1,7 +1,7 @@
 .header-main {
   display: flex;
   justify-content: space-between;
-  max-height: 30px;
+  max-height: 40px;
   margin-top: 10px; /* Adds margin around the header */
   margin-right: 10px;
   margin-left:10px;
@@ -26,8 +26,23 @@
 }
 
 .document-name-input {
-  /* Style as needed, e.g., border, padding */
+  background-color: transparent; /* Makes the background transparent */
+  border: none; /* Removes the default border */
+  border-bottom: 1px solid black; /* Adds a single underline */
+  outline: none; /* Removes the focus outline */
+  padding: 4px !important; /* Removes padding */
+  margin-bottom: 5px; /* Adds margin below the input */
+  color: black; /* Text color, can be changed as needed */
+  line-height: normal; /* Adjusts line height to move text closer to the bottom */
+  /* align-self: center; */
+  
+  /* Styles for the placeholder */
+  ::placeholder {
+    color: grey; /* Placeholder text color */
+    opacity: 1; /* Placeholder text opacity */
+  }
 }
+
 
 .logoContainer {
   display: flex;
