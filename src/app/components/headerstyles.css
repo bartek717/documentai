@@ -1,19 +1,52 @@
 .header-main {
-    display: flex;
-    justify-content: space-between;
-    /* Other styles for .main */
-    max-height: 30px;
-  }
-  
-  .header-container {
-    display: flex;
-    /* align-items: center; Aligns items vertically center */
-  }
-  
-  .home, .document-name {
-    margin-right: 10px; /* Adds some spacing between the items */
-  }
-  
-  .document-name-input {
-    /* Add styles for your input field here */
-  }
+  display: flex;
+  justify-content: space-between;
+  max-height: 30px;
+  margin-top: 10px; /* Adds margin around the header */
+  margin-right: 10px;
+  margin-left:10px;
+  border: 1px solid grey; /* Border around the header */
+  border-radius: 5px;
+  align-items: center; /* Aligns items vertically */
+}
+
+.header-container {
+  display: flex;
+  align-items: center; /* Aligns children elements */
+}
+
+.home{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.document-name {
+  margin-right: 10px; /* Adds spacing between items */
+  margin-left: 10px;
+}
+
+.document-name-input {
+  /* Style as needed, e.g., border, padding */
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center; /* Centering the logo horizontally */
+  align-items: center; /* Centering the logo vertically */
+}
+
+.logo {
+  max-width: 50px; /* Adjust size as needed */
+  max-height: 100%; /* Adjust size as needed */
+}
+
+.right {
+  display: flex;
+  align-items: center; /* Aligns file upload with other elements */
+  justify-content: flex-end; /* Aligns content to the far right */
+}
+
+/* Additional input styles for file upload, if needed */
+input[type="file"] {
+  /* Style as needed */
+}

@@ -29,7 +29,6 @@ function Header({ documentName, setDocumentName, pdfText, setPdfText }) {
   return (
     <div className='header-main'>
       <div className='header-container'>
-        <div className='home'>Home</div>
         <div className='document-name'>
           <input 
             type="text" 
@@ -39,6 +38,9 @@ function Header({ documentName, setDocumentName, pdfText, setPdfText }) {
             placeholder="Enter document name" 
           />
         </div>
+      </div>
+      <div className='logoContainer'>
+        <img src='DocAI.png' alt='logo' className='logo' />
       </div>
       <div className='right'>
         <input 
