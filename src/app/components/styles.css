@@ -45,8 +45,8 @@ button.is-active {
   margin: 20px auto; /* Centering the editor on the page */
   /* padding: 20px; */
   width: 210mm; /* Width similar to A4 paper */
-  min-height: 100vh; 
-  min-height: 100%;
+  min-height: 50vh; 
+  /* min-height: 100%; */
   font-family: 'Arial', sans-serif; 
   color: black; /* Black text color */
   outline: none; /* Removing focus outline */
