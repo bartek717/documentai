@@ -10,7 +10,8 @@
 
 .menu-bar {
   /* Keep the existing styles for the menu bar */
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
+  padding-top: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,6 +27,7 @@
   background: none;
   color: rgb(70, 70, 70);
   cursor: pointer;
+  padding: 0;
 }
 
 button.is-active {
@@ -43,7 +45,8 @@ button.is-active {
   margin: 20px auto; /* Centering the editor on the page */
   /* padding: 20px; */
   width: 210mm; /* Width similar to A4 paper */
-  min-height: 100vh; /* Full viewport height */
+  min-height: 100vh; 
+  min-height: 100%;
   font-family: 'Arial', sans-serif; 
   color: black; /* Black text color */
   outline: none; /* Removing focus outline */
@@ -114,4 +117,10 @@ button.is-active {
   border: none;
   border-top: 2px solid #9c9c9c;
   margin: 2rem 0;
+}
+
+
+.dropdown {
+  margin-right: 15px;
+  max-width: 5rem;
 }

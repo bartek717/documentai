@@ -1,23 +1,36 @@
+.master {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.header { 
+  flex: 0 1 auto; /* Header size based on content, can shrink but not grow */
+  /* Set other styles as needed */
+}
+
 .main {
-    display: flex;
-    flex-direction: row;
-    width: calc(100vw - 20px); /* Adjust for horizontal padding/margin */
-    height: calc(100vh - 20px); /* Adjust for vertical padding/margin */
-    margin: 10px; /* Margin around the container */
-    padding: 0;
-    box-sizing: border-box;
-    overflow: hidden; 
-  }
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto; /* Takes up the remaining space, can grow and shrink */
+  margin: 10px; 
+  padding: 0;
+  box-sizing: border-box;
+}
   
   .component {
-    height: 100%; /* Full height of the container */
+    /* max-height: 100%; Full height of the container */
     /* Ensure the sum of flex-basis values does not exceed 100% */
     overflow-y: scroll;
   }
   
   .editor {
+    /* max-height: 100%; */
     overflow-y: scroll;
   }
+
+
   
   
   
