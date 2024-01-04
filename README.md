@@ -1,3 +1,5 @@
+## DocAI
+
 This is an AI enhanced Text Editor which uses TipTap Rich Text Editor, as well as the GPT API to enhance the workflow within text editors
 
 ## Motivations
