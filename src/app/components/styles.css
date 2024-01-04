@@ -2,10 +2,14 @@
 
 .text-editor {
   /* Keep the existing styles for the text-editor container */
+  flex: 1;
   border-radius: 5px;
   border: 1px solid grey;
   margin: 0rem auto;
-  min-height: 100%;
+  /* max-height: 100%; */
+  flex: 0 0 70%; /* adjust the flex-basis to 70% instead of grow and shrink */
+  height: calc(100vh - 40px);
+  overflow-y: auto; 
 }
 
 .menu-bar {
@@ -45,12 +49,11 @@ button.is-active {
   margin: 20px auto; /* Centering the editor on the page */
   /* padding: 20px; */
   width: 210mm; /* Width similar to A4 paper */
-  min-height: 50vh; 
-  /* min-height: 100%; */
+  min-height: 100vh; 
   font-family: 'Arial', sans-serif; 
   color: black; /* Black text color */
   outline: none; /* Removing focus outline */
-
+  overflow-y: auto;
   padding-top: var(--editor-padding-top, 5rem);
   padding-bottom: var(--editor-padding-bottom, 5rem);
 }

@@ -279,8 +279,9 @@ const MyEditor = ({ documentName }) => {
 
   return (
     <div ref={editorRef} className="text-editor">
-      {/* {showMarginForm && <MarginForm onSave={handleMarginChange} margins={margins} setMargins={setMargins} onClose={() => setShowMarginForm(false)} />} */}
-      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} font={fontFamily} fontSize={fontSize} handleFontFamilyChange={handleFontFamilyChange} handleFontSizeChange={handleFontSizeChange} fontFamily={fontFamily}/>} extensions={extensions} content={content} onUpdate={({ editor }) => { /* ... */ }}></EditorProvider>
+      {showMarginForm && <MarginForm onSave={handleMarginChange} margins={margins} setMargins={setMargins} onClose={() => setShowMarginForm(false)} />}
+      
+      <EditorProvider slotBefore={<MenuBar documentName={documentName} onMarginChange={() => setShowMarginForm(true)} margins={margins} font={fontFamily} fontSize={fontSize} handleFontFamilyChange={handleFontFamilyChange} handleFontSizeChange={handleFontSizeChange} fontFamily={fontFamily}/>} extensions={extensions} content={content} onUpdate={({ editor }) => { }}></EditorProvider>
     </div>
   );
 };
