@@ -14,7 +14,6 @@ export default function Home() {
     <div className='master'>
       <div className='header'>
         <Header documentName={documentName} setDocumentName={setDocumentName} pdfText={pdfText} setPdfText={setPdfText} />
-        {/* <div>hi</div> */}
       </div>
       <div className="main">
         <div className="editor" style={{ flex: '0 0 70%' }}>
@@ -25,6 +24,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-    
   );
 }

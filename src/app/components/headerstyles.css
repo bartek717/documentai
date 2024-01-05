@@ -2,17 +2,17 @@
   display: flex;
   justify-content: space-between;
   max-height: 40px;
-  margin-top: 10px; /* Adds margin around the header */
+  margin-top: 10px; 
   margin-right: 10px;
   margin-left:10px;
-  border: 1px solid grey; /* Border around the header */
+  border: 1px solid grey; 
   border-radius: 5px;
-  align-items: center; /* Aligns items vertically */
+  align-items: center; 
 }
 
 .header-container {
   display: flex;
-  align-items: center; /* Aligns children elements */
+  align-items: center; 
 }
 
 .home{
@@ -21,47 +21,39 @@
 }
 
 .document-name {
-  margin-right: 10px; /* Adds spacing between items */
+  margin-right: 10px; 
   margin-left: 10px;
 }
 
 .document-name-input {
-  background-color: transparent; /* Makes the background transparent */
-  border: none; /* Removes the default border */
-  border-bottom: 1px solid black; /* Adds a single underline */
-  outline: none; /* Removes the focus outline */
-  padding: 4px !important; /* Removes padding */
-  margin-bottom: 5px; /* Adds margin below the input */
-  color: black; /* Text color, can be changed as needed */
-  line-height: normal; /* Adjusts line height to move text closer to the bottom */
-  /* align-self: center; */
-  
-  /* Styles for the placeholder */
-  ::placeholder {
-    color: grey; /* Placeholder text color */
-    opacity: 1; /* Placeholder text opacity */
-  }
+  background-color: transparent; 
+  border: none; 
+  border-bottom: 1px solid black; 
+  outline: none; 
+  padding: 4px !important; 
+  margin-bottom: 5px; 
+  color: black; 
+  line-height: normal; 
 }
 
 
 .logoContainer {
   display: flex;
-  justify-content: center; /* Centering the logo horizontally */
-  align-items: center; /* Centering the logo vertically */
+  justify-content: center; 
+  align-items: center;
 }
 
 .logo {
-  max-width: 50px; /* Adjust size as needed */
-  max-height: 100%; /* Adjust size as needed */
+  max-width: 50px; 
+  max-height: 100%; 
 }
 
 .right {
   display: flex;
-  align-items: center; /* Aligns file upload with other elements */
-  justify-content: flex-end; /* Aligns content to the far right */
+  align-items: center; 
+  justify-content: flex-end;
 }
 
-/* Additional input styles for file upload, if needed */
 input[type="file"] {
-  /* Style as needed */
+  
 }

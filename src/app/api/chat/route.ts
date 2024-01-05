@@ -6,10 +6,9 @@ export const runtime = 'edge';
 
 interface ChatMessage {
   text: string;
-  sender: string; // 'user' or 'gpt4'
+  sender: string; 
 }
 
-// Assuming the OpenAI API expects these roles
 type ChatCompletionRequestMessageRole = 'user' | 'assistant' | 'system';
 
 const configuration = new Configuration({
@@ -22,22 +21,16 @@ export async function POST(req: Request, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { extra, messages } = await req.json() as { extra: string, messages: ChatMessage[] };
     try {
-      // Add the PDF text as the first message from the assistant
       if(extra){
         const initialMessage = {
           role: 'system' as ChatCompletionRequestMessageRole,
           content: "This is helpful context for the following conversation: \n" + extra
         };
-        
-        // Format the rest of the messages
         const formattedMessages = messages.map(msg => ({
           role: msg.sender === 'user' ? 'user' : 'assistant' as ChatCompletionRequestMessageRole,
           content: msg.text
         }));
-
-        // Start the conversation with the PDF text
         formattedMessages.unshift(initialMessage);
-
         const response = await openai.createChatCompletion({
           model: "gpt-4",
           stream: true,
@@ -45,7 +38,6 @@ export async function POST(req: Request, res: NextApiResponse) {
           messages: formattedMessages
         });
         const stream = OpenAIStream(response);
-
         return new StreamingTextResponse(stream);
       }
       else{
@@ -53,16 +45,11 @@ export async function POST(req: Request, res: NextApiResponse) {
           role: 'system' as ChatCompletionRequestMessageRole,
           content: ""
         };
-        
-      // Format the rest of the messages
         const formattedMessages = messages.map(msg => ({
           role: msg.sender === 'user' ? 'user' : 'assistant' as ChatCompletionRequestMessageRole,
           content: msg.text
         }));
-
-        // Start the conversation with the PDF text
         formattedMessages.unshift(initialMessage);
-
         const response = await openai.createChatCompletion({
           model: "gpt-4",
           stream: true,
@@ -70,10 +57,8 @@ export async function POST(req: Request, res: NextApiResponse) {
           messages: formattedMessages
         });
         const stream = OpenAIStream(response);
-
         return new StreamingTextResponse(stream);
       }
-
     }
     catch (error) {
       console.error('Error in API call:', error);

@@ -1,21 +1,20 @@
 .main-chat {
   border: 1px solid grey;
-  max-height: calc(100vh - 50px); /* Adjusted to fill the viewport height minus 50px */
-  min-height: calc(100vh - 50px); /* Same as max-height for consistency */
+  max-height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px); 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 5px;
-  overflow: hidden; /* Hide overflow */
+  overflow: hidden; 
 }
 
 .chat-messages {
-  flex-grow: 1; /* Allows the element to grow and fill the space */
-  overflow-y: auto; /* Only show scrollbar when necessary */
+  flex-grow: 1; 
+  overflow-y: auto; 
   padding: 10px;
-  margin-bottom: 0; /* Remove any default margin */
+  margin-bottom: 0;
 }
-
 
 form {
   display: flex;
@@ -42,11 +41,11 @@ button {
 
 .message-bubble.user {
   margin-left: auto;
-  background-color: #DCF8C6; /* Light green for user */
+  background-color: #DCF8C6;
 }
 
 .message-bubble.gpt4 {
-  background-color: #ECECEC; /* Light grey for GPT */
+  background-color: #ECECEC; 
 }
 
 .message-text {
