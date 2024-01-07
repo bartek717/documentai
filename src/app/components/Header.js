@@ -47,9 +47,14 @@ function Header({ documentName, setDocumentName, pdfText, setPdfText }) {
           type="file" 
           accept="text/plain" 
           onChange={handleFileUpload} 
-          placeholder="Upload a .txt for context"
+          id="fileInput" 
+          style={{ display: 'none' }} 
         />
+        <label htmlFor="fileInput" className="custom-file-upload">
+          Upload a .txt file
+        </label>
       </div>
+
     </div>
   );
 }

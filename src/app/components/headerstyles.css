@@ -32,7 +32,7 @@
   outline: none; 
   padding: 4px !important; 
   margin-bottom: 5px; 
-  color: black; 
+  color: white; 
   line-height: normal; 
 }
 
@@ -55,5 +55,23 @@
 }
 
 input[type="file"] {
-  
+  /* text-decoration: white; */
+}
+
+.custom-file-upload {
+  /* border: 1px solid #ccc; */
+  display: inline-block;
+  padding: 1px 2px; 
+  border: 1px solid grey; 
+  margin-right: 5px;
+  cursor: pointer;
+  /* background-color: white; Set the background color */
+  /* color: rgb(70, 70, 70);; Set the text color */
+  color: white;
+  border-radius: 5px;
+}
+
+/* Style the label to look like a file input */
+.custom-file-upload:hover {
+  background-color: #f0f0f0; /* Change background on hover */
 }
