@@ -19,14 +19,21 @@
 form {
   display: flex;
   padding: 10px;
+  /* border: 1px solid white; */
 }
 
 input[type="text"] {
   flex-grow: 1;
   margin-right: 10px;
   padding: 8px;
+  color: white;
+  
+  background-color: transparent;
 }
 
+.messageBox {
+  border: 1px solid white;
+}
 button {
   padding: 8px;
 }

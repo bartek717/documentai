@@ -63,6 +63,7 @@ function Chat( { text: pdfText} ) {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Type a message..."
+          className='messageBox'
         />
         <button type="submit">Send</button>
       </form>

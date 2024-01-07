@@ -8,6 +8,16 @@
   overflow-y: auto; 
 }
 
+.text-editor::-webkit-scrollbar-track {
+  background: #2e2e2e; /* Dark grey track */
+}
+
+/* Styling the scrollbar handle */
+.text-editor::-webkit-scrollbar-thumb {
+  background-color: #555; /* Darker grey scrollbar handle */
+}
+
+
 .menu-bar {
   padding-top: 5px;
   display: flex;
@@ -22,7 +32,7 @@
   outline: none;
   border: none;
   background: none;
-  color: rgb(70, 70, 70);
+  color: rgb(188, 182, 173);
   cursor: pointer;
   padding: 0;
 }
@@ -41,7 +51,8 @@ button.is-active {
   width: 210mm; 
   min-height: 100vh; 
   font-family: 'Arial', sans-serif; 
-  color: black;
+  color: white;
+  background-color: rgb(30, 33, 35);
   outline: none;
   overflow-y: auto;
   padding-top: var(--editor-padding-top, 5rem);
@@ -103,4 +114,7 @@ button.is-active {
 .dropdown {
   margin-right: 15px;
   max-width: 5rem;
+  background-color: transparent;
+  color: rgb(188, 182, 173);
+  /* border: 1px grey; */
 }

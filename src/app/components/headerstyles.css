@@ -28,7 +28,7 @@
 .document-name-input {
   background-color: transparent; 
   border: none; 
-  border-bottom: 1px solid black; 
+  border-bottom: 1px solid grey; 
   outline: none; 
   padding: 4px !important; 
   margin-bottom: 5px; 
@@ -68,7 +68,7 @@ input[type="file"] {
   /* background-color: white; Set the background color */
   /* color: rgb(70, 70, 70);; Set the text color */
   color: white;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 /* Style the label to look like a file input */
