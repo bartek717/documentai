@@ -8,13 +8,14 @@
   overflow-y: auto; 
 }
 
+
+/* not working?? */
 .text-editor::-webkit-scrollbar-track {
-  background: #2e2e2e; /* Dark grey track */
+  background: #2e2e2e; 
 }
 
-/* Styling the scrollbar handle */
 .text-editor::-webkit-scrollbar-thumb {
-  background-color: #555; /* Darker grey scrollbar handle */
+  background-color: #555; 
 }
 
 

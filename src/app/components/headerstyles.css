@@ -61,14 +61,12 @@ input[type="file"] {
 .custom-file-upload {
   display: inline-block;
   border: 1px solid grey; 
-  /* margin-right: 5px; */
   padding: 2px;
   margin-right: 10px;
   cursor: pointer;
   color: white;
-  padding: 1px 1px; /* Example padding, adjust as needed */
-  font-size: 14px; /* Example font size, adjust as needed */
-  /* line-height: 1; Adjust line height as needed */
+  padding: 1px 1px;
+  font-size: 14px; 
   height: 100%;
-  box-sizing: border-box; /* Include padding and border in width/height */
+  box-sizing: border-box; 
 }

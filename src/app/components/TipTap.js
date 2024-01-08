@@ -12,14 +12,14 @@ import {FaBold, FaItalic, FaListOl, FaQuoteLeft, FaStrikethrough, FaHeading, FaL
 
 
 const downloadPDF = async (editor, documentName, margins, font, fontSize) => {
-  const html = editor.getHTML(); // Get HTML from the editor
+  const html = editor.getHTML(); 
 
   const res = await fetch('/api/pdf', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ html, margins, font, fontSize }), // Include margins in the request body
+    body: JSON.stringify({ html, margins, font, fontSize }),
   });
 
   const blob = await res.blob();
