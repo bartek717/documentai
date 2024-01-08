@@ -11,16 +11,15 @@ interface ChatMessage {
 
 type ChatCompletionRequestMessageRole = 'user' | 'assistant' | 'system';
 
-const configuration = new Configuration({
-  apiKey: process.env.GPT_API_KEY
-});
-
-const openai = new OpenAIApi(configuration);
 
 export async function POST(req: Request, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { extra, messages } = await req.json() as { extra: string, messages: ChatMessage[] };
+    const { extra, messages, apiKey } = await req.json() as { extra: string, messages: ChatMessage[], apiKey: string };
     try {
+      const configuration = new Configuration({
+        apiKey: apiKey
+      });
+      const openai = new OpenAIApi(configuration);
       if(extra){
         const initialMessage = {
           role: 'system' as ChatCompletionRequestMessageRole,
@@ -61,11 +60,10 @@ export async function POST(req: Request, res: NextApiResponse) {
       }
     }
     catch (error) {
-      console.error('Error in API call:', error);
-      res.status(500).json({ error: 'Error processing your request' });
+      res.status(400).json({ error: 'Error processing your request' });
     }
   } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
+    res.status(400).json({ error: 'Method Not Allowed' });
   }
 }
 

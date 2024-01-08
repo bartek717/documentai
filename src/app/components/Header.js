@@ -1,10 +1,22 @@
+'use client'
 import React, { useState } from 'react';
 import styles from './headerstyles.css';
 
-function Header({ documentName, setDocumentName, pdfText, setPdfText }) {
+function Header({ documentName, setDocumentName, pdfText, setPdfText, apiKey, setApiKey }) {
+  const [tempApiKey, setTempApiKey] = useState('');
   const handleNameChange = (e) => {
     setDocumentName(e.target.value);
   };
+
+  const handleChangeApiKey = (e) => {
+    setTempApiKey(e.target.value);
+  }
+
+  const saveApiKey = (key) =>{
+    setApiKey(key);
+    setTempApiKey('')
+    alert('API Key saved successfully!');
+  }
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -43,6 +55,14 @@ function Header({ documentName, setDocumentName, pdfText, setPdfText }) {
         <img src='DocAI.png' alt='logo' className='logo' />
       </div>
       <div className='right'>
+        <input 
+            type="text" 
+            value={tempApiKey} 
+            onChange={handleChangeApiKey} 
+            className="document-name-input" 
+            placeholder="Paste Your GPT API key" 
+        />
+        <button onClick={() => saveApiKey(tempApiKey)}>save</button>
         <input 
           type="file" 
           accept="text/plain" 
