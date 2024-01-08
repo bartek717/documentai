@@ -36,6 +36,7 @@ function Header({ documentName, setDocumentName, pdfText, setPdfText, apiKey, se
     } else {
       console.error('Please upload a text file.');
     }
+    alert('File Uploaded Succesfully')
   };
 
   return (
@@ -62,7 +63,7 @@ function Header({ documentName, setDocumentName, pdfText, setPdfText, apiKey, se
             className="document-name-input" 
             placeholder="Paste Your GPT API key" 
         />
-        <button onClick={() => saveApiKey(tempApiKey)}>save</button>
+        <button className='custom-file-upload' onClick={() => saveApiKey(tempApiKey)}>Save</button>
         <input 
           type="file" 
           accept="text/plain" 
