@@ -36,12 +36,13 @@
     "pdfjs-dist": "^4.0.269",
     "playwright": "^1.40.1",
     "puppeteer": "^21.6.1",
-    "puppeteer-core": "^10.1.0",
+    "puppeteer-core": "^10.4.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "sass": "^1.69.5",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "@types/node": "^20",

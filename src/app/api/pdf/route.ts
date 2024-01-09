@@ -1,15 +1,12 @@
-
+import puppeteer from 'puppeteer-core';
 import type { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import edgeChromium from 'chrome-aws-lambda'
-import puppeteer from 'puppeteer-core'
 
 export async function POST(req: Request) {
   if (req.method === 'POST') {
     const { html, margins, font, fontSize } = await req.json();
-    const executablePath = await edgeChromium.executablePath
     const dynamicCss = `
     .editor-content {
       padding-top: ${margins.top};
@@ -24,12 +21,9 @@ export async function POST(req: Request) {
     `;
     const wrappedHtml = `<div class="editor-content">${html}</div>`;
     const fullHtml = `<style>${dynamicCss}</style>${wrappedHtml}`
-    const browser = await puppeteer.launch({
-      executablePath,
-      args: edgeChromium.args,
-      headless: false,
+    const browser = await puppeteer.connect({
+      browserWSEndpoint: `wss://chrome.browserless.io?token=${process.env.BLESS_TOKEN}`,
     })
-    
     const page = await browser.newPage();
     await page.setContent(fullHtml, { waitUntil: 'networkidle0' });
     const pdfBuffer = await page.pdf({ format: 'a4' });
