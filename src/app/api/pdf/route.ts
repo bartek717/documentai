@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     `;
     const wrappedHtml = `<div class="editor-content">${html}</div>`;
     const fullHtml = `<style>${dynamicCss}</style>${wrappedHtml}`
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
     await page.setContent(fullHtml, { waitUntil: 'networkidle0' });
     const pdfBuffer = await page.pdf({ format: 'A4' });
