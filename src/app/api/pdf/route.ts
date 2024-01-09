@@ -1,9 +1,13 @@
+import puppeteer from 'puppeteer';
+import type { NextApiRequest } from 'next';
+import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import { chromium } from 'playwright';
-import type { NextApiRequest, NextApiResponse } from 'next';
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
   if (req.method === 'POST') {
-    const { html, margins, font, fontSize } = req.body;
+    const { html, margins, font, fontSize } = await req.json();
     const dynamicCss = `
     .editor-content {
       padding-top: ${margins.top};
@@ -17,17 +21,16 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
     `;
     const wrappedHtml = `<div class="editor-content">${html}</div>`;
-    const fullHtml = `<style>${dynamicCss}</style>${wrappedHtml}`;
-
-    const browser = await chromium.launch();
+    const fullHtml = `<style>${dynamicCss}</style>${wrappedHtml}`
+    const browser = await chromium.launch({headless: true});
     const page = await browser.newPage();
     await page.setContent(fullHtml, { waitUntil: 'networkidle' });
     const pdfBuffer = await page.pdf({ format: 'A4' });
     await browser.close();
-
-    res.setHeader('Content-Type', 'application/pdf');
-    res.send(pdfBuffer);
+    const response = new NextResponse(pdfBuffer);
+    response.headers.set('Content-Type', 'application/pdf');
+    return response;
   } else {
-    res.status(405).send('Method Not Allowed');
+    return new NextResponse('Method Not Allowed', { status: 405 });
   }
 }
