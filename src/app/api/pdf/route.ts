@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 import type { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 import fs from 'fs';
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     await browser.close();
     const response = new NextResponse(pdfBuffer);
     response.headers.set('Content-Type', 'application/pdf');
-    console.log('responding w pdf')
+    // console.log('responding w pdf')
     return response;
   } else {
     return new NextResponse('Method Not Allowed', { status: 405 });
